@@ -10,11 +10,11 @@ export const HeroSection = ({ scrollProgress }: HeroSectionProps) => {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* 3D scene: ensure always fills and visible */}
-      <div className="pointer-events-none absolute inset-0 z-0">
+      <div className="pointer-events-none absolute inset-0 z-0" style={{ outline: '2px solid red' }}>
         {/* Add slightly lower z-index so all UI is above */}
         <Scene3D section="hero" scrollProgress={scrollProgress} />
-        {/* Extra fallback for contrast if scene is empty */}
-        <div className="absolute inset-0 bg-background opacity-75" style={{pointerEvents: 'none'}} />
+        {/* Fallback: REMOVE or make transparent for now */}
+        {/* <div className="absolute inset-0 bg-background opacity-75" style={{pointerEvents: 'none'}} /> */}
       </div>
 
       {/* Foreground content */}
