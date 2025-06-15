@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
@@ -8,7 +7,7 @@
 
 @layer base {
   :root {
-    --background: 35 25% 8%;
+    --background: 30 8% 27%; /* HSL for #746864 */
     --foreground: 35 15% 92%;
 
     --card: 35 25% 12%;

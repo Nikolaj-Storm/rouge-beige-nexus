@@ -1,4 +1,3 @@
-
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { useRef, useMemo } from 'react';
@@ -128,7 +127,7 @@ const ParticleField = ({ count = 50 }: { count?: number }) => {
         />
       </bufferGeometry>
       <pointsMaterial 
-        color="#1e3a8a" 
+        color="#822b32" // A strong bordeaux/dark red
         size={0.03} 
         sizeAttenuation={true}
         transparent={true}
@@ -145,37 +144,37 @@ export const Scene3D = ({ section, scrollProgress }: Scene3DProps) => {
         return (
           <>
             <ParticleField count={80} />
-            <AnimatedSphere position={[2, 1, 0]} color="#1e40af" scale={0.8} />
-            <AnimatedSphere position={[-2, -1, -1]} color="#3b82f6" scale={0.6} />
-            <AnimatedBox position={[0, 2, -2]} color="#2563eb" scale={0.5} />
+            <AnimatedSphere position={[2, 1, 0]} color="#822b32" scale={0.8} />
+            <AnimatedSphere position={[-2, -1, -1]} color="#be4444" scale={0.6} />
+            <AnimatedBox position={[0, 2, -2]} color="#ab2346" scale={0.5} />
           </>
         );
       case 'blog':
         return (
           <>
             <ParticleField count={60} />
-            <AnimatedBox position={[1, 0, 0]} color="#1e40af" scale={[1.2, 0.3, 0.1]} />
-            <AnimatedBox position={[-1, 1, -1]} color="#3b82f6" scale={[0.8, 0.2, 0.1]} />
-            <AnimatedSphere position={[0, -1.5, 1]} color="#2563eb" scale={0.4} />
+            <AnimatedBox position={[1, 0, 0]} color="#822b32" scale={[1.2, 0.3, 0.1]} />
+            <AnimatedBox position={[-1, 1, -1]} color="#be4444" scale={[0.8, 0.2, 0.1]} />
+            <AnimatedSphere position={[0, -1.5, 1]} color="#ab2346" scale={0.4} />
           </>
         );
       case 'papers':
         return (
           <>
             <ParticleField count={70} />
-            <AnimatedBox position={[0, 0, 0]} color="#1e40af" scale={[1.5, 2, 0.1]} />
-            <AnimatedBox position={[2, 1, -1]} color="#3b82f6" scale={[1, 1.5, 0.1]} />
-            <AnimatedSphere position={[-2, -0.5, 1]} color="#2563eb" scale={0.5} />
+            <AnimatedBox position={[0, 0, 0]} color="#822b32" scale={[1.5, 2, 0.1]} />
+            <AnimatedBox position={[2, 1, -1]} color="#be4444" scale={[1, 1.5, 0.1]} />
+            <AnimatedSphere position={[-2, -0.5, 1]} color="#ab2346" scale={0.5} />
           </>
         );
       case 'projects':
         return (
           <>
             <ParticleField count={90} />
-            <AnimatedSphere position={[1.5, 1, 0]} color="#1e40af" scale={0.7} />
-            <AnimatedBox position={[-1, 0, -1]} color="#3b82f6" scale={0.8} />
-            <AnimatedSphere position={[0, -1, 1]} color="#2563eb" scale={0.6} />
-            <AnimatedBox position={[2, -1.5, -0.5]} color="#1d4ed8" scale={0.4} />
+            <AnimatedSphere position={[1.5, 1, 0]} color="#822b32" scale={0.7} />
+            <AnimatedBox position={[-1, 0, -1]} color="#be4444" scale={0.8} />
+            <AnimatedSphere position={[0, -1, 1]} color="#ab2346" scale={0.6} />
+            <AnimatedBox position={[2, -1.5, -0.5]} color="#630f19" scale={0.4} />
           </>
         );
       default:
@@ -189,8 +188,8 @@ export const Scene3D = ({ section, scrollProgress }: Scene3DProps) => {
       gl={{ antialias: true, alpha: true }}
     >
       <ambientLight intensity={0.3} />
-      <directionalLight position={[10, 10, 5]} intensity={0.8} color="#60a5fa" />
-      <directionalLight position={[-10, -10, -5]} intensity={0.4} color="#1e40af" />
+      <directionalLight position={[10, 10, 5]} intensity={0.8} color="#be4444" />
+      <directionalLight position={[-10, -10, -5]} intensity={0.4} color="#822b32" />
       
       {getSceneElements()}
       
