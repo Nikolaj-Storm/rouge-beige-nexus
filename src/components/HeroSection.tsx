@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { Scene3D } from './Scene3D';
+import Hero3DBackground from './Hero3DBackground';
 
 interface HeroSectionProps {
   scrollProgress: number;
@@ -9,15 +9,10 @@ interface HeroSectionProps {
 export const HeroSection = ({ scrollProgress }: HeroSectionProps) => {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* 3D scene: ensure always fills and visible */}
-      <div className="pointer-events-none absolute inset-0 z-0" style={{ outline: '2px solid red' }}>
-        {/* Add slightly lower z-index so all UI is above */}
-        <Scene3D section="hero" scrollProgress={scrollProgress} />
-        {/* Fallback: REMOVE or make transparent for now */}
-        {/* <div className="absolute inset-0 bg-background opacity-75" style={{pointerEvents: 'none'}} /> */}
-      </div>
+      {/* Minimal foolproof 3D background */}
+      <Hero3DBackground />
 
-      {/* Foreground content */}
+      {/* Foreground content stays identical */}
       <div className="relative z-10 text-center px-8">
         <motion.h1 
           className="font-display text-6xl md:text-8xl font-bold text-beige mb-6"
@@ -70,4 +65,3 @@ export const HeroSection = ({ scrollProgress }: HeroSectionProps) => {
     </section>
   );
 };
-
