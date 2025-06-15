@@ -3,92 +3,12 @@ import { OrbitControls } from '@react-three/drei';
 import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import AnimatedBlob from "./AnimatedBlob";
 
 interface Scene3DProps {
   section: 'hero' | 'blog' | 'papers' | 'projects';
   scrollProgress: number;
 }
-
-const AnimatedSphere = ({ position, color, scale }: { position: [number, number, number], color: string, scale: number }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      const time = state.clock.elapsedTime;
-      
-      // Organic rotation with varying speeds
-      meshRef.current.rotation.x = Math.sin(time * 0.3) * 0.5;
-      meshRef.current.rotation.y = time * 0.2;
-      meshRef.current.rotation.z = Math.cos(time * 0.4) * 0.3;
-      
-      // Lava lamp floating motion
-      meshRef.current.position.y = position[1] + Math.sin(time * 0.5) * 0.3 + Math.cos(time * 0.3) * 0.1;
-      meshRef.current.position.x = position[0] + Math.cos(time * 0.4) * 0.1;
-      meshRef.current.position.z = position[2] + Math.sin(time * 0.6) * 0.1;
-      
-      // Pulsating scale effect
-      const pulseScale = 1 + Math.sin(time * 0.8) * 0.2 + Math.cos(time * 1.2) * 0.1;
-      meshRef.current.scale.setScalar(scale * pulseScale);
-    }
-  });
-
-  return (
-    <mesh ref={meshRef} position={position}>
-      <sphereGeometry args={[1, 32, 32]} />
-      <meshStandardMaterial 
-        color={color} 
-        metalness={0.3} 
-        roughness={0.4}
-        transparent={true}
-        opacity={0.8}
-      />
-    </mesh>
-  );
-};
-
-const AnimatedBox = ({ position, color, scale }: { position: [number, number, number], color: string, scale: number | [number, number, number] }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      const time = state.clock.elapsedTime;
-      
-      // Organic morphing rotation
-      meshRef.current.rotation.x = Math.sin(time * 0.6) * 0.4;
-      meshRef.current.rotation.y = time * 0.3;
-      meshRef.current.rotation.z = Math.cos(time * 0.5) * 0.6;
-      
-      // Floating motion with multiple sine waves for organic feel
-      meshRef.current.position.x = position[0] + Math.cos(time * 0.4) * 0.2 + Math.sin(time * 0.7) * 0.1;
-      meshRef.current.position.y = position[1] + Math.sin(time * 0.6) * 0.25 + Math.cos(time * 0.9) * 0.15;
-      meshRef.current.position.z = position[2] + Math.sin(time * 0.5) * 0.15;
-      
-      // Morphing scale with different axes
-      const scaleX = 1 + Math.sin(time * 1.1) * 0.3;
-      const scaleY = 1 + Math.cos(time * 0.9) * 0.25;
-      const scaleZ = 1 + Math.sin(time * 1.3) * 0.2;
-      
-      if (typeof scale === 'number') {
-        meshRef.current.scale.set(scale * scaleX, scale * scaleY, scale * scaleZ);
-      } else {
-        meshRef.current.scale.set(scale[0] * scaleX, scale[1] * scaleY, scale[2] * scaleZ);
-      }
-    }
-  });
-
-  return (
-    <mesh ref={meshRef} position={position}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial 
-        color={color} 
-        metalness={0.4} 
-        roughness={0.3}
-        transparent={true}
-        opacity={0.7}
-      />
-    </mesh>
-  );
-};
 
 const ParticleField = ({ count = 50 }: { count?: number }) => {
   const pointsRef = useRef<THREE.Points>(null);
@@ -140,41 +60,119 @@ const ParticleField = ({ count = 50 }: { count?: number }) => {
 export const Scene3D = ({ section, scrollProgress }: Scene3DProps) => {
   const getSceneElements = () => {
     switch (section) {
-      case 'hero':
+      case "hero":
         return (
           <>
             <ParticleField count={80} />
-            <AnimatedSphere position={[2, 1, 0]} color="#822b32" scale={0.8} />
-            <AnimatedSphere position={[-2, -1, -1]} color="#be4444" scale={0.6} />
-            <AnimatedBox position={[0, 2, -2]} color="#ab2346" scale={0.5} />
+            <AnimatedBlob
+              position={[2, 1, 0]}
+              color="#822b32"
+              scale={0.8}
+              speed={2.5}
+              distort={0.7}
+            />
+            <AnimatedBlob
+              position={[-2, -1, -1]}
+              color="#be4444"
+              scale={0.66}
+              speed={2.1}
+              distort={0.9}
+            />
+            <AnimatedBlob
+              position={[0.2, 2, -2]}
+              color="#ab2346"
+              scale={0.47}
+              speed={2.9}
+              distort={1.0}
+            />
           </>
         );
-      case 'blog':
+      case "blog":
         return (
           <>
             <ParticleField count={60} />
-            <AnimatedBox position={[1, 0, 0]} color="#822b32" scale={[1.2, 0.3, 0.1]} />
-            <AnimatedBox position={[-1, 1, -1]} color="#be4444" scale={[0.8, 0.2, 0.1]} />
-            <AnimatedSphere position={[0, -1.5, 1]} color="#ab2346" scale={0.4} />
+            <AnimatedBlob
+              position={[1, 0, 0]}
+              color="#822b32"
+              scale={1.2}
+              speed={2.2}
+              distort={0.82}
+            />
+            <AnimatedBlob
+              position={[-1, 1, -1]}
+              color="#be4444"
+              scale={0.82}
+              speed={2.1}
+              distort={1.1}
+            />
+            <AnimatedBlob
+              position={[0, -1.5, 1]}
+              color="#ab2346"
+              scale={0.49}
+              speed={1.8}
+              distort={1.05}
+            />
           </>
         );
-      case 'papers':
+      case "papers":
         return (
           <>
             <ParticleField count={70} />
-            <AnimatedBox position={[0, 0, 0]} color="#822b32" scale={[1.5, 2, 0.1]} />
-            <AnimatedBox position={[2, 1, -1]} color="#be4444" scale={[1, 1.5, 0.1]} />
-            <AnimatedSphere position={[-2, -0.5, 1]} color="#ab2346" scale={0.5} />
+            <AnimatedBlob
+              position={[0, 0, 0]}
+              color="#822b32"
+              scale={1.6}
+              speed={2.5}
+              distort={0.63}
+            />
+            <AnimatedBlob
+              position={[2, 1, -1]}
+              color="#be4444"
+              scale={1}
+              speed={2.7}
+              distort={1.04}
+            />
+            <AnimatedBlob
+              position={[-2, -0.5, 1]}
+              color="#ab2346"
+              scale={0.57}
+              speed={2.3}
+              distort={1.25}
+            />
           </>
         );
-      case 'projects':
+      case "projects":
         return (
           <>
             <ParticleField count={90} />
-            <AnimatedSphere position={[1.5, 1, 0]} color="#822b32" scale={0.7} />
-            <AnimatedBox position={[-1, 0, -1]} color="#be4444" scale={0.8} />
-            <AnimatedSphere position={[0, -1, 1]} color="#ab2346" scale={0.6} />
-            <AnimatedBox position={[2, -1.5, -0.5]} color="#630f19" scale={0.4} />
+            <AnimatedBlob
+              position={[1.5, 1, 0]}
+              color="#822b32"
+              scale={0.7}
+              speed={2.35}
+              distort={0.8}
+            />
+            <AnimatedBlob
+              position={[-1, 0, -1]}
+              color="#be4444"
+              scale={0.82}
+              speed={2.3}
+              distort={0.98}
+            />
+            <AnimatedBlob
+              position={[0, -1, 1]}
+              color="#ab2346"
+              scale={0.62}
+              speed={2.8}
+              distort={1.1}
+            />
+            <AnimatedBlob
+              position={[2, -1.5, -0.5]}
+              color="#630f19"
+              scale={0.45}
+              speed={2.6}
+              distort={1.2}
+            />
           </>
         );
       default:
