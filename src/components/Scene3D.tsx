@@ -195,24 +195,32 @@ export const Scene3D = ({ section, scrollProgress }: Scene3DProps) => {
   };
 
   return (
-    <Canvas 
-      camera={{ position: [0, 0, 5], fov: 75 }}
-      gl={{ antialias: true, alpha: true }}
-    >
-      <ambientLight intensity={0.3} />
-      <directionalLight position={[10, 10, 5]} intensity={0.8} color="#be4444" />
-      <directionalLight position={[-10, -10, -5]} intensity={0.4} color="#822b32" />
-      
-      {getSceneElements()}
-      
-      <OrbitControls 
-        enableZoom={false} 
-        enablePan={false} 
-        autoRotate 
-        autoRotateSpeed={0.3} 
-        maxPolarAngle={Math.PI / 2}
-        minPolarAngle={Math.PI / 2}
-      />
-    </Canvas>
+    <div className="w-full h-full absolute inset-0">
+      <Canvas 
+        camera={{ position: [0, 0, 5], fov: 75 }}
+        gl={{ antialias: true, alpha: true }}
+        style={{
+          width: '100vw',
+          height: '100vh',
+          pointerEvents: 'none', // Don't block clicks!
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0
+        }}
+      >
+        <ambientLight intensity={0.3} />
+        <directionalLight position={[10, 10, 5]} intensity={0.8} color="#be4444" />
+        <directionalLight position={[-10, -10, -5]} intensity={0.4} color="#822b32" />
+        {getSceneElements()}
+        <OrbitControls 
+          enableZoom={false} 
+          enablePan={false} 
+          autoRotate 
+          autoRotateSpeed={0.3} 
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 2}
+        />
+      </Canvas>
+    </div>
   );
 };
