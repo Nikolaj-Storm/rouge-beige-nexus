@@ -1,7 +1,7 @@
 
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Float, Sphere, Box } from '@react-three/drei';
-import { useRef, useMemo } from 'react';
+import { OrbitControls } from '@react-three/drei';
+import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -17,15 +17,15 @@ const AnimatedSphere = ({ position, color, scale }: { position: [number, number,
     if (meshRef.current) {
       meshRef.current.rotation.x = state.clock.elapsedTime * 0.5;
       meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
+      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime) * 0.1;
     }
   });
 
   return (
-    <Float speed={2} rotationIntensity={1} floatIntensity={0.5}>
-      <Sphere ref={meshRef} position={position} scale={scale}>
-        <meshStandardMaterial color={color} metalness={0.8} roughness={0.2} />
-      </Sphere>
-    </Float>
+    <mesh ref={meshRef} position={position} scale={scale}>
+      <sphereGeometry args={[1, 32, 32]} />
+      <meshStandardMaterial color={color} metalness={0.8} roughness={0.2} />
+    </mesh>
   );
 };
 
@@ -36,40 +36,45 @@ const AnimatedBox = ({ position, color, scale }: { position: [number, number, nu
     if (meshRef.current) {
       meshRef.current.rotation.x = state.clock.elapsedTime * 0.3;
       meshRef.current.rotation.z = state.clock.elapsedTime * 0.4;
+      meshRef.current.position.x = position[0] + Math.cos(state.clock.elapsedTime) * 0.1;
     }
   });
 
   return (
-    <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.3}>
-      <Box ref={meshRef} position={position} scale={scale}>
-        <meshStandardMaterial color={color} metalness={0.6} roughness={0.3} />
-      </Box>
-    </Float>
+    <mesh ref={meshRef} position={position} scale={scale}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color={color} metalness={0.6} roughness={0.3} />
+    </mesh>
   );
 };
 
-const ParticleField = ({ count = 100 }: { count?: number }) => {
-  const points = useMemo(() => {
-    const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+const ParticleField = ({ count = 50 }: { count?: number }) => {
+  const pointsRef = useRef<THREE.Points>(null);
+  
+  const positions = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 15;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 15;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 15;
+  }
+
+  useFrame(() => {
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y += 0.001;
     }
-    return positions;
-  }, [count]);
+  });
 
   return (
-    <points>
+    <points ref={pointsRef}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
           count={count}
-          array={points}
+          array={positions}
           itemSize={3}
         />
       </bufferGeometry>
-      <pointsMaterial color="#8B0000" size={0.05} sizeAttenuation transparent opacity={0.6} />
+      <pointsMaterial color="#8B0000" size={0.02} sizeAttenuation={true} />
     </points>
   );
 };
@@ -80,7 +85,7 @@ export const Scene3D = ({ section, scrollProgress }: Scene3DProps) => {
       case 'hero':
         return (
           <>
-            <ParticleField count={150} />
+            <ParticleField count={80} />
             <AnimatedSphere position={[2, 1, 0]} color="#8B0000" scale={0.8} />
             <AnimatedSphere position={[-2, -1, -1]} color="#D2691E" scale={0.6} />
             <AnimatedBox position={[0, 2, -2]} color="#A0522D" scale={0.5} />
@@ -89,7 +94,7 @@ export const Scene3D = ({ section, scrollProgress }: Scene3DProps) => {
       case 'blog':
         return (
           <>
-            <ParticleField count={80} />
+            <ParticleField count={60} />
             <AnimatedBox position={[1, 0, 0]} color="#8B0000" scale={[1.2, 0.3, 0.1]} />
             <AnimatedBox position={[-1, 1, -1]} color="#D2691E" scale={[0.8, 0.2, 0.1]} />
             <AnimatedSphere position={[0, -1.5, 1]} color="#A0522D" scale={0.4} />
@@ -98,7 +103,7 @@ export const Scene3D = ({ section, scrollProgress }: Scene3DProps) => {
       case 'papers':
         return (
           <>
-            <ParticleField count={120} />
+            <ParticleField count={70} />
             <AnimatedBox position={[0, 0, 0]} color="#8B0000" scale={[1.5, 2, 0.1]} />
             <AnimatedBox position={[2, 1, -1]} color="#D2691E" scale={[1, 1.5, 0.1]} />
             <AnimatedSphere position={[-2, -0.5, 1]} color="#A0522D" scale={0.5} />
@@ -107,7 +112,7 @@ export const Scene3D = ({ section, scrollProgress }: Scene3DProps) => {
       case 'projects':
         return (
           <>
-            <ParticleField count={100} />
+            <ParticleField count={90} />
             <AnimatedSphere position={[1.5, 1, 0]} color="#8B0000" scale={0.7} />
             <AnimatedBox position={[-1, 0, -1]} color="#D2691E" scale={0.8} />
             <AnimatedSphere position={[0, -1, 1]} color="#A0522D" scale={0.6} />
@@ -120,8 +125,11 @@ export const Scene3D = ({ section, scrollProgress }: Scene3DProps) => {
   };
 
   return (
-    <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-      <ambientLight intensity={0.3} />
+    <Canvas 
+      camera={{ position: [0, 0, 5], fov: 75 }}
+      gl={{ antialias: true, alpha: true }}
+    >
+      <ambientLight intensity={0.4} />
       <directionalLight position={[10, 10, 5]} intensity={1} color="#D2691E" />
       <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#8B0000" />
       
