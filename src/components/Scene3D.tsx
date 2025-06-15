@@ -1,7 +1,7 @@
 
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Text, Float, Sphere, Box } from '@react-three/drei';
-import { useRef, useMemo } from 'react';
+import { OrbitControls, Float, Sphere, Box } from '@react-three/drei';
+import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -29,7 +29,7 @@ const AnimatedSphere = ({ position, color, scale }: { position: [number, number,
   );
 };
 
-const AnimatedBox = ({ position, color, scale }: { position: [number, number, number], color: string, scale: number }) => {
+const AnimatedBox = ({ position, color, scale }: { position: [number, number, number], color: string, scale: number | [number, number, number] }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   
   useFrame((state) => {
@@ -49,25 +49,22 @@ const AnimatedBox = ({ position, color, scale }: { position: [number, number, nu
 };
 
 const ParticleField = ({ count = 100 }: { count?: number }) => {
-  const points = useMemo(() => {
-    const temp = [];
-    for (let i = 0; i < count; i++) {
-      temp.push(
-        (Math.random() - 0.5) * 20,
-        (Math.random() - 0.5) * 20,
-        (Math.random() - 0.5) * 20
-      );
-    }
-    return new Float32Array(temp);
-  }, [count]);
+  const pointsRef = useRef<THREE.Points>(null);
+  
+  const positions = new Float32Array(count * 3);
+  for (let i = 0; i < count * 3; i += 3) {
+    positions[i] = (Math.random() - 0.5) * 20;
+    positions[i + 1] = (Math.random() - 0.5) * 20;
+    positions[i + 2] = (Math.random() - 0.5) * 20;
+  }
 
   return (
-    <points>
+    <points ref={pointsRef}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
           count={count}
-          array={points}
+          array={positions}
           itemSize={3}
         />
       </bufferGeometry>
