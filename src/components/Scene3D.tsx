@@ -4,6 +4,7 @@ import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import AnimatedBlob from "./AnimatedBlob";
+import IDCard3D from "./IDCard3D";
 
 interface Scene3DProps {
   section: 'hero' | 'blog' | 'papers' | 'projects';
@@ -85,6 +86,7 @@ export const Scene3D = ({ section, scrollProgress }: Scene3DProps) => {
               speed={2.9}
               distort={1.0}
             />
+            <IDCard3D position={[0, -2, 1]} />
           </>
         );
       case "blog":
