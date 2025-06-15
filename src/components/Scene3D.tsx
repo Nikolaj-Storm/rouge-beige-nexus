@@ -86,7 +86,19 @@ export const Scene3D = ({ section, scrollProgress }: Scene3DProps) => {
               speed={2.9}
               distort={1.0}
             />
-            <IDCard3D position={[0, -2, 1]} />
+            {/* Move IDCard3D to a more visible, central position above blobs and scale it up */}
+            <IDCard3D position={[0, 0.65, 1.4]} scale={1.35} />
+            {/* Add a gentle spotlight focused on the card */}
+            <spotLight
+              position={[0, 2.2, 2.2]}
+              intensity={1.0}
+              distance={7}
+              angle={0.24}
+              penumbra={0.6}
+              color="#bea6ff"
+              castShadow={false}
+              target-position={[0, 0.65, 1.4]}
+            />
           </>
         );
       case "blog":
