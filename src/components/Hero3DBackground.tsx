@@ -1,6 +1,5 @@
 
 import { Canvas } from "@react-three/fiber";
-import IDCard3D from "./IDCard3D";
 
 export const Hero3DBackground = () => {
   return (
@@ -16,24 +15,14 @@ export const Hero3DBackground = () => {
         }}
         gl={{ alpha: true, antialias: true }}
       >
-        <ambientLight intensity={0.3} />
-        <directionalLight position={[10, 10, 5]} intensity={0.8} color="#be4444" />
-        <directionalLight position={[-10, -10, -5]} intensity={0.4} color="#822b32" />
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[10, 10, 5]} intensity={1} />
         
-        {/* Use the exact same positioning and scale as in Scene3D */}
-        <IDCard3D position={[0, 0.65, 1.4]} scale={1.35} />
-        
-        {/* Add the spotlight that was in Scene3D */}
-        <spotLight
-          position={[0, 2.2, 2.2]}
-          intensity={1.0}
-          distance={7}
-          angle={0.24}
-          penumbra={0.6}
-          color="#bea6ff"
-          castShadow={false}
-          target-position={[0, 0.65, 1.4]}
-        />
+        {/* Simple spinning cube */}
+        <mesh rotation={[0, 0, 0]}>
+          <boxGeometry args={[1, 1, 1]} />
+          <meshStandardMaterial color="#822b32" />
+        </mesh>
       </Canvas>
     </div>
   );
