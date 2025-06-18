@@ -15,14 +15,8 @@ export const Hero3DBackground = () => {
         }}
         gl={{ alpha: true, antialias: true }}
       >
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
-        
-        {/* Simple spinning cube */}
-        <mesh rotation={[0, 0, 0]}>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color="#822b32" />
-        </mesh>
+        <ambientLight intensity={0.3} />
+        <directionalLight position={[10, 10, 5]} intensity={0.5} color="#7F8CAA" />
       </Canvas>
     </div>
   );

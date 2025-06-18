@@ -12,10 +12,10 @@ export const HeroSection = ({ scrollProgress }: HeroSectionProps) => {
       {/* Minimal foolproof 3D background */}
       <Hero3DBackground />
 
-      {/* Foreground content stays identical */}
+      {/* Foreground content with new color scheme */}
       <div className="relative z-10 text-center px-8">
         <motion.h1 
-          className="font-display text-6xl md:text-8xl font-bold text-beige mb-6"
+          className="font-display text-6xl md:text-8xl font-bold text-off-white mb-6"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -24,7 +24,7 @@ export const HeroSection = ({ scrollProgress }: HeroSectionProps) => {
         </motion.h1>
         
         <motion.p 
-          className="text-xl md:text-2xl text-beige-dark max-w-2xl mx-auto mb-8"
+          className="text-xl md:text-2xl text-light-teal max-w-2xl mx-auto mb-8"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
@@ -39,16 +39,16 @@ export const HeroSection = ({ scrollProgress }: HeroSectionProps) => {
           transition={{ duration: 1, delay: 1.1 }}
         >
           <div className="text-center">
-            <div className="text-3xl font-bold text-bordeaux">15+</div>
-            <div className="text-beige-dark">Papers Published</div>
+            <div className="text-3xl font-bold text-medium-blue">15+</div>
+            <div className="text-light-teal">Papers Published</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-bordeaux">50+</div>
-            <div className="text-beige-dark">Blog Articles</div>
+            <div className="text-3xl font-bold text-medium-blue">50+</div>
+            <div className="text-light-teal">Blog Articles</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-bordeaux">25+</div>
-            <div className="text-beige-dark">Projects</div>
+            <div className="text-3xl font-bold text-medium-blue">25+</div>
+            <div className="text-light-teal">Projects</div>
           </div>
         </motion.div>
       </div>
@@ -58,8 +58,8 @@ export const HeroSection = ({ scrollProgress }: HeroSectionProps) => {
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        <div className="w-6 h-10 border-2 border-beige rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-beige rounded-full mt-2 animate-pulse"></div>
+        <div className="w-6 h-10 border-2 border-off-white rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-off-white rounded-full mt-2 animate-pulse"></div>
         </div>
       </motion.div>
     </section>

@@ -6,6 +6,7 @@ import { BlogSection } from '@/components/BlogSection';
 import { PapersSection } from '@/components/PapersSection';
 import { ProjectsSection } from '@/components/ProjectsSection';
 import { ContactSection } from '@/components/ContactSection';
+import { BouncingProfileCircle } from '@/components/BouncingProfileCircle';
 
 const Index = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -24,6 +25,9 @@ const Index = () => {
   return (
     <div className="bg-background text-foreground">
       <Navigation />
+      
+      {/* Bouncing Profile Circle */}
+      <BouncingProfileCircle />
       
       <div id="hero">
         <HeroSection scrollProgress={scrollProgress} />
@@ -46,9 +50,9 @@ const Index = () => {
       </div>
 
       {/* Scroll Progress Indicator */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-bordeaux/20 z-50">
+      <div className="fixed top-0 left-0 w-full h-1 bg-medium-blue/20 z-50">
         <div 
-          className="h-full bg-bordeaux transition-all duration-300 ease-out"
+          className="h-full bg-medium-blue transition-all duration-300 ease-out"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
