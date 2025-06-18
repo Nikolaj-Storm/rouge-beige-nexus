@@ -1,122 +1,86 @@
 
 import { motion } from 'framer-motion';
-import { Scene3D } from './Scene3D';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface PapersSectionProps {
   scrollProgress: number;
 }
 
-const papers = [
-  {
-    title: "Machine Learning Applications in Contemporary Research",
-    journal: "Journal of Computational Studies",
-    year: "2024",
-    authors: "Your Name, Co-Author A., Co-Author B.",
-    abstract: "This paper explores the transformative impact of machine learning methodologies on contemporary research practices across multiple disciplines.",
-    citations: 47,
-    impact: "High Impact"
-  },
-  {
-    title: "Digital Transformation in Academic Institutions",
-    journal: "Educational Technology Review",
-    year: "2023",
-    authors: "Your Name, Collaborator C.",
-    abstract: "An comprehensive analysis of how digital technologies are reshaping educational and research paradigms in higher education.",
-    citations: 32,
-    impact: "Medium Impact"
-  },
-  {
-    title: "Interdisciplinary Approaches to Complex Problem Solving",
-    journal: "International Research Quarterly",
-    year: "2023",
-    authors: "Your Name",
-    abstract: "This study examines the effectiveness of interdisciplinary collaboration in addressing complex societal and scientific challenges.",
-    citations: 28,
-    impact: "Medium Impact"
-  }
-];
-
 export const PapersSection = ({ scrollProgress }: PapersSectionProps) => {
+  const papers = [
+    {
+      title: "Machine Learning Applications in Digital Humanities",
+      journal: "Journal of Digital Scholarship",
+      year: "2024",
+      abstract: "This paper explores the intersection of machine learning and digital humanities, presenting novel approaches to text analysis and cultural data mining.",
+      status: "Published"
+    },
+    {
+      title: "Collaborative Knowledge Networks in Academic Research",
+      journal: "Academic Collaboration Quarterly",
+      year: "2023",
+      abstract: "An analysis of how digital platforms facilitate collaborative research and knowledge sharing across institutional boundaries.",
+      status: "Published"
+    },
+    {
+      title: "The Ethics of AI in Educational Technology",
+      journal: "Educational Technology Review",
+      year: "2023",
+      abstract: "Examining the ethical implications of artificial intelligence integration in educational systems and learning platforms.",
+      status: "Under Review"
+    }
+  ];
+
   return (
-    <section className="relative min-h-screen py-20 overflow-hidden">
-      <div className="absolute inset-0 z-0 opacity-20">
-        <Scene3D section="papers" scrollProgress={scrollProgress} />
-      </div>
-      
-      <div className="relative z-10 container mx-auto px-8">
-        <motion.div 
-          className="text-center mb-16"
+    <section className="min-h-screen py-20 px-8 bg-gradient-to-br from-light-teal to-medium-blue">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="font-display text-5xl md:text-6xl font-bold text-beige mb-6">
-            Academic Papers
+          <h2 className="font-display text-5xl md:text-6xl font-bold text-off-white mb-4">
+            Research Papers
           </h2>
-          <p className="text-xl text-beige-dark max-w-2xl mx-auto">
-            Peer-reviewed research contributing to the advancement of knowledge
+          <p className="text-xl text-off-white/80 mb-16 max-w-2xl">
+            Academic contributions and scholarly publications exploring the intersection of technology and humanities.
           </p>
         </motion.div>
 
-        <div className="space-y-8 max-w-4xl mx-auto">
+        <div className="space-y-8">
           {papers.map((paper, index) => (
             <motion.div
               key={index}
+              className="bg-off-white/95 backdrop-blur-sm rounded-lg p-8 shadow-lg border border-off-white/20"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.02 }}
-              className="cursor-pointer"
+              whileHover={{ x: 10 }}
             >
-              <Card className="bg-card/80 backdrop-blur-sm border-bordeaux/20 hover:border-bordeaux/40 transition-all duration-300">
-                <CardHeader>
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-bordeaux font-medium text-sm">{paper.journal}</span>
-                    <div className="flex items-center space-x-4 text-sm text-beige-dark">
-                      <span>{paper.year}</span>
-                      <span>{paper.citations} citations</span>
-                      <span className="px-2 py-1 bg-bordeaux/20 rounded text-bordeaux text-xs">
-                        {paper.impact}
-                      </span>
-                    </div>
-                  </div>
-                  <CardTitle className="text-beige text-2xl font-display mb-2">
+              <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-dark-blue mb-2">
                     {paper.title}
-                  </CardTitle>
-                  <p className="text-beige-dark text-sm">{paper.authors}</p>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-beige-dark text-base leading-relaxed">
-                    {paper.abstract}
-                  </CardDescription>
-                  <div className="mt-4 flex space-x-4">
-                    <button className="text-bordeaux hover:text-bordeaux-light transition-colors text-sm font-medium">
-                      View PDF
-                    </button>
-                    <button className="text-bordeaux hover:text-bordeaux-light transition-colors text-sm font-medium">
-                      Citations
-                    </button>
+                  </h3>
+                  <div className="text-medium-blue mb-4">
+                    <span className="font-medium">{paper.journal}</span> • {paper.year}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  paper.status === 'Published' 
+                    ? 'bg-dark-blue text-off-white' 
+                    : 'bg-medium-blue text-off-white'
+                }`}>
+                  {paper.status}
+                </span>
+              </div>
+              <p className="text-medium-blue leading-relaxed">
+                {paper.abstract}
+              </p>
             </motion.div>
           ))}
         </div>
-
-        <motion.div 
-          className="text-center mt-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <button className="px-8 py-3 bg-bordeaux text-beige font-medium rounded-lg hover:bg-bordeaux-light transition-colors duration-300">
-            View Full Publications
-          </button>
-        </motion.div>
       </div>
     </section>
   );
