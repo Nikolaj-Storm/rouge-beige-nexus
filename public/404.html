@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; URL='/rouge-beige-nexus/'" />
   </head>
   <body>
     <p>Redirecting to home...</p>
+    <script type="module">
+      const { pathname, search, hash } = window.location;
+      const base = import.meta.env.BASE_URL;
+      window.location.replace(`${base}${pathname}${search}${hash}`);
+    </script>
   </body>
 </html>
