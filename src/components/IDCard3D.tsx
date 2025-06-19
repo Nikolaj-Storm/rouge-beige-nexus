@@ -51,7 +51,7 @@ export const IDCard3D = ({ position, scale = 1 }: IDCard3DProps) => {
           <primitive 
             object={(() => {
               const loader = new THREE.TextureLoader();
-              const textureUrl = `${import.meta.env.BASE_URL}lovable-uploads/a0465d30-8f95-45fb-8af6-4278de99132f.png`;
+              const textureUrl = '/rouge-beige-nexus/lovable-uploads/a0465d30-8f95-45fb-8af6-4278de99132f.png';
               return loader.load(textureUrl);
             })()}
             attach="map"
@@ -66,7 +66,6 @@ export const IDCard3D = ({ position, scale = 1 }: IDCard3DProps) => {
         color="#2d2d2d"
         anchorX="left"
         anchorY="middle"
-        font={`${import.meta.env.BASE_URL}fonts/inter-medium.woff`}
         maxWidth={0.92}
       >
         NIKOLAJ STORM
@@ -77,7 +76,6 @@ export const IDCard3D = ({ position, scale = 1 }: IDCard3DProps) => {
         color="#2d2d2d"
         anchorX="left"
         anchorY="middle"
-        font={`${import.meta.env.BASE_URL}fonts/inter-medium.woff`}
         maxWidth={0.92}
       >
         PETERSEN
@@ -89,7 +87,6 @@ export const IDCard3D = ({ position, scale = 1 }: IDCard3DProps) => {
         color="#666"
         anchorX="left"
         anchorY="middle"
-        font={`${import.meta.env.BASE_URL}fonts/inter-regular.woff`}
       >
         DRIVER LICENSE
       </Text>
@@ -100,7 +97,6 @@ export const IDCard3D = ({ position, scale = 1 }: IDCard3DProps) => {
         color="#888"
         anchorX="left"
         anchorY="middle"
-        font={`${import.meta.env.BASE_URL}fonts/inter-regular.woff`}
       >
         ID: DK-2024-NSP
       </Text>
@@ -111,7 +107,6 @@ export const IDCard3D = ({ position, scale = 1 }: IDCard3DProps) => {
         color="#888"
         anchorX="left"
         anchorY="middle"
-        font={`${import.meta.env.BASE_URL}fonts/inter-regular.woff`}
       >
         EXP: 12/2029
       </Text>

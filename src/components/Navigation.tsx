@@ -37,7 +37,7 @@ export const Navigation = () => {
             className="font-display text-2xl font-bold text-off-white hover:text-medium-blue transition-colors"
             whileHover={{ scale: 1.05 }}
           >
-            Your Name
+            Nikolaj Storm Petersen
           </motion.button>
 
           <div className="hidden md:flex space-x-8">
